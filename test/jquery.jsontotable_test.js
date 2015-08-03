@@ -118,10 +118,10 @@
     target.empty();
     $.jsontotable(str, { id: "#test3", header: true });
     equal(target.find("thead").length, 1);
-    equal(target.find("tbody").length, 0);
+    equal(target.find("tbody").length, 1);
     equal(target.find("th").length, 3);
-    equal(target.find("tr").length, 1);
-    equal(target.find("td").length, 0);
+    equal(target.find("tr").length, 2);
+    equal(target.find("td").length, 3);
 
     str = '[{ "a": 1, "b": 2, "c": 3 }, { "a": 1, "b": 2, "c": 3 }]';
 
@@ -138,16 +138,16 @@
     equal(target.find("thead").length, 1);
     equal(target.find("tbody").length, 1);
     equal(target.find("th").length, 3);
-    equal(target.find("tr").length, 2);
-    equal(target.find("td").length, 3);
+    equal(target.find("tr").length, 3);
+    equal(target.find("td").length, 6);
 
     target.empty();
     $.jsontotable(str, { id: "#test3" });
     equal(target.find("thead").length, 1);
     equal(target.find("tbody").length, 1);
     equal(target.find("th").length, 3);
-    equal(target.find("tr").length, 2);
-    equal(target.find("td").length, 3);
+    equal(target.find("tr").length, 3);
+    equal(target.find("td").length, 6);
   });
 
   test("Test4 for _data Attribute", function() {
@@ -172,20 +172,32 @@
     equal(target.find("td").length, 3);
     equal(target.text(), arr[0]._data.join("") + arr[1].join(""));
   });
-  
+
   test("Test5 for Auto Header", function() {
     var target = $("#test5");
     var data = [
       {"Date":"2012-05-02","Weight":"76.20"},{"Date":"2012-05-22","Weight":"75.50"},{"Date":"2012-07-02","Weight":"73.80"},
       {"Date":"2012-08-06","Weight":"73.00"},{"Date":"2012-10-10","Weight":"70.50"},{"Date":"2013-01-02","Weight":"72.50"}
     ];
-    
+
     target.empty();
     $.jsontotable(data, { id: "#test5", header: true });
     equal(target.find("thead").length, 1);
     equal(target.find("tbody").length, 1);
     equal(target.find("th").length, 2);
-    equal(target.find("tr").length, 6);
-    equal(target.find("td").length, 10);
+    equal(target.find("tr").length, 7);
+    equal(target.find("td").length, 12);
+  });
+
+  test("Test6 for single element in dictionary", function() {
+    var target = $("#test6");
+    var data = [{"Date":"2012-05-02","Weight":"76.20"}];
+    target.empty();
+    $.jsontotable(data, { id: "#test6", header: true });
+    equal(target.find("thead").length, 1);
+    equal(target.find("tbody").length, 1);
+    equal(target.find("th").length, 2);
+    equal(target.find("tr").length, 2);
+    equal(target.find("td").length, 2);
   });
 }(jQuery));
